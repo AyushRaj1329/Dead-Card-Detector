@@ -193,24 +193,40 @@ void processCardRead() {
   Serial.println(F("Trigger pressed. Reading card..."));
 
   for (uint8_t attempt = 0; attempt < inventoryAttempts; attempt++) {
-    uint8_t invFrame[8];
-    uint8_t invFrameLen = buildFrame(invFrame, sizeof(invFrame), CMD_INVENTORY, 2);
-    uint8_t invResp[32];
-    int16_t invRespLen = sendCommandAndReceive(invFrame, invFrameLen, invResp, sizeof(invResp), inventoryTimeoutMs);
+    // Wake the card first. WUPA (unlike a plain REQA/Inventory) also
+    // wakes cards left in the HALT state after a prior select cycle,
+    // which is why some cards would otherwise fail to respond.
+    uint8_t wupaFrame[8];
+    uint8_t wupaFrameLen = buildFrame(wupaFrame, sizeof(wupaFrame), CMD_WUPA, 3);
+    uint8_t wupaResp[16];
+    int16_t wupaRespLen = sendCommandAndReceive(wupaFrame, wupaFrameLen, wupaResp, sizeof(wupaResp), inventoryTimeoutMs);
 
-    if (invRespLen < 0) {
+    if (wupaRespLen < 0) {
       Serial.println(F("Connection lost during card read."));
       disconnectAndReset();
       return;
     }
 
-    if (isResponseOk(invResp, invRespLen)) {
-      uint8_t uidLen = invResp[0] - 6;
-      if (uidLen > 0 && invRespLen >= 6 + uidLen) {
-        Serial.print(F("UID found: "));
-        printHexBytes(invResp + 6, uidLen);
-        pulseOutput(outputUidFoundPin, outputUidFoundActive, outputUidFoundStartMs);
+    if (isResponseOk(wupaResp, wupaRespLen)) {
+      uint8_t invFrame[8];
+      uint8_t invFrameLen = buildFrame(invFrame, sizeof(invFrame), CMD_INVENTORY, 2);
+      uint8_t invResp[32];
+      int16_t invRespLen = sendCommandAndReceive(invFrame, invFrameLen, invResp, sizeof(invResp), inventoryTimeoutMs);
+
+      if (invRespLen < 0) {
+        Serial.println(F("Connection lost during card read."));
+        disconnectAndReset();
         return;
+      }
+
+      if (isResponseOk(invResp, invRespLen)) {
+        uint8_t uidLen = invResp[0] - 6;
+        if (uidLen > 0 && invRespLen >= 6 + uidLen) {
+          Serial.print(F("UID found: "));
+          printHexBytes(invResp + 6, uidLen);
+          pulseOutput(outputUidFoundPin, outputUidFoundActive, outputUidFoundStartMs);
+          return;
+        }
       }
     }
 

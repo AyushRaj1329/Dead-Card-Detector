@@ -2,12 +2,16 @@
   <!-- Background -->
   <rect x="0" y="0" width="900" height="620" fill="#ffffff"/>
 
+  <!-- Superseded banner -->
+  <rect x="0" y="0" width="900" height="26" fill="#8a2222"/>
+  <text x="450" y="18" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">SUPERSEDED — this is the old Ethernet/RRHFOEM04 wiring. Current diagram: docs/wiring-diagram-pn532.svg</text>
+
   <!-- Title -->
-  <text x="450" y="32" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a1a1a">Dead Card Detector — Wiring Diagram</text>
+  <text x="450" y="52" text-anchor="middle" font-size="20" font-weight="bold" fill="#1a1a1a">Dead Card Detector — Wiring Diagram (superseded)</text>
 
   <!-- Arduino Uno + Ethernet Shield board -->
-  <rect x="60" y="80" width="300" height="380" rx="14" fill="#1f6f43" stroke="#123f26" stroke-width="2"/>
-  <text x="210" y="110" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Arduino Uno R3</text>
+  <rect x="60" y="85" width="300" height="375" rx="14" fill="#1f6f43" stroke="#123f26" stroke-width="2"/>
+  <text x="210" y="112" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Arduino Uno R3</text>
   <text x="210" y="130" text-anchor="middle" font-size="13" fill="#e6f4ea">+ Ethernet Shield (W5100)</text>
 
   <!-- RJ45 port -->

@@ -1,4 +1,27 @@
-# How to capture the exact Anti-collision / Select Card byte sequences
+# How to capture the exact Anti-collision / Select Card byte sequences (obsolete)
+
+> **⚠️ Obsolete document — task no longer relevant.**
+>
+> This described how to capture raw protocol bytes from the RRHFOEM04
+> vendor test application, in order to add `Anti-collision` and
+> `Select Card` commands to the old Ethernet/TCP sketch.
+>
+> This was never needed in the end. The byte codes were instead read
+> directly from the vendor's C# reference source, and shortly afterwards the
+> project dropped the RRHFOEM04 entirely in favour of a PN532 — which is
+> driven through the `Adafruit_PN532` library, so there are no hand-built
+> command frames to capture at all.
+>
+> **Every path and tool referenced below is gone:** the `RRHFOEM04-TCP/`
+> vendor folder, the `dead_card_detector.ino` sketch, and the reader's TCP
+> endpoint at `192.168.1.200:9090`. The current reader is wired directly over
+> SPI, so there is no network traffic to capture.
+>
+> - **Current firmware:** [`../ats_only_reader/ats_only_reader.ino`](../ats_only_reader/ats_only_reader.ino)
+> - **Why the reader changed:** [`ats-based-detection-proposal.md`](ats-based-detection-proposal.md)
+>
+> Kept only as a record of the debugging approach, which is a reasonable
+> technique for any TCP-based device.
 
 ## Why this is needed
 

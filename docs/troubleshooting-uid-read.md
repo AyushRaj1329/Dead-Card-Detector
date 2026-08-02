@@ -1,4 +1,24 @@
-# Troubleshooting: UID read works for one card type but not another
+# Troubleshooting: UID read works for one card type but not another (superseded)
+
+> **⚠️ Historical document — describes deleted code.**
+>
+> This records the investigation into inconsistent **UID** reads on the
+> original Ethernet/TCP `dead_card_detector.ino` sketch driving an RRHFOEM04
+> reader. Both that sketch and that reader are gone; the project now uses a
+> PN532 over SPI and detects on **ATS**, not UID.
+>
+> The code fixes proposed below were applied at the time and later reverted —
+> **do not apply them to the current firmware**, which shares no code with
+> the sketch discussed here.
+>
+> Still useful, and why this is kept: the investigation established that
+> (a) the RRHFOEM04's command set stops at ISO14443-3 and cannot retrieve ATS
+> at all, which motivated the hardware change, and (b) one specific bank card
+> failed at the physical/RF layer regardless of reader or command sequence —
+> a finding that still applies today.
+>
+> - **Current firmware:** [`../ats_only_reader/ats_only_reader.ino`](../ats_only_reader/ats_only_reader.ino)
+> - **Outcome of this investigation:** [`ats-based-detection-proposal.md`](ats-based-detection-proposal.md)
 
 ## Symptom
 

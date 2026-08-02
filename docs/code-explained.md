@@ -1,4 +1,22 @@
-# Code Explained: `dead_card_detector.ino`
+# Code Explained: `dead_card_detector.ino` (superseded)
+
+> **⚠️ Historical document — does not describe the current firmware.**
+>
+> This walks through `dead_card_detector.ino`, the original Ethernet/TCP
+> sketch that drove an RRHFOEM04 reader and detected cards by **UID**. That
+> sketch was **deleted** from the repo when the project moved to a PN532
+> reader with **ATS**-based detection.
+>
+> Nothing here applies to the current hardware or firmware: there is no
+> Ethernet shield, no TCP connection, no heartbeat, no CRC framing, and no
+> UID reading in the project any more.
+>
+> - **Current firmware:** [`../ats_only_reader/ats_only_reader.ino`](../ats_only_reader/ats_only_reader.ino)
+> - **Current walkthrough:** [`../ats_only_reader/ats_only_reader_explained.md`](../ats_only_reader/ats_only_reader_explained.md)
+> - **Why it changed:** [`ats-based-detection-proposal.md`](ats-based-detection-proposal.md)
+>
+> Kept for reference: the CRC/framing and reader-protocol notes below are
+> still an accurate record of how that reader's protocol worked.
 
 This document walks through the entire sketch section by section, explains
 the terminology used (RFID/networking jargon), and traces the control flow

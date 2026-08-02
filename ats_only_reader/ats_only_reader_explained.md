@@ -225,7 +225,7 @@ Re-runs the PN532's wakeup and configuration sequence before every single read a
 ```cpp
   bool cardPresent = nfc.inListPassiveTarget();
 ```
-Polls for a passive (unpowered) ISO14443A card in the field and, if found, fully activates it. This function is used specifically because it also sets the PN532 library's internal "currently listed tag" state, which `inDataExchange()` (used just below for RATS) depends on. The alternative function, `readPassiveTargetID()`, does *not* set that internal state, so calling it first would make the subsequent RATS exchange fail — this was confirmed the hard way while building the related `dead_card_detector.ino` sketch.
+Polls for a passive (unpowered) ISO14443A card in the field and, if found, fully activates it. This function is used specifically because it also sets the PN532 library's internal "currently listed tag" state, which `inDataExchange()` (used just below for RATS) depends on. The alternative function, `readPassiveTargetID()`, does *not* set that internal state, so calling it first would make the subsequent RATS exchange fail — this was confirmed the hard way while building an earlier combined UID + ATS sketch (`dead_card_detector.ino`, since removed from the repo; see [`../docs/ats-based-detection-proposal.md`](../docs/ats-based-detection-proposal.md) for that finding).
 
 ```cpp
   if (!cardPresent) {

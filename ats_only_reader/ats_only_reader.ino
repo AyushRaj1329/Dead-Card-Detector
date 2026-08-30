@@ -5,7 +5,7 @@
 // Same pin configuration as dead_card_detector.ino.
 // Uno hardware SPI pins are fixed: SCK=13, MOSI=11, MISO=12.
 // Only the SS (chip select) pin is configurable.
-const uint8_t PN532_SS = 10;
+const uint8_t PN532_SS = 10;  // PN532 chip select
 Adafruit_PN532 nfc(PN532_SS);
 
 // ================= Pin Configuration =================
